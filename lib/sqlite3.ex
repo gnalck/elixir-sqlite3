@@ -1,4 +1,6 @@
 defmodule SQLite3 do
+  alias SQLite3.Query
+
   def start_link(path, opts \\ []) do
     opts = [path: path] ++ opts
     DBConnection.start_link(SQLite3.Protocol, opts)
@@ -9,7 +11,7 @@ defmodule SQLite3 do
   end
 
   def query(conn, query, params, opts \\ []) do
-    case DBConnection.prepare_execute(conn, query, params, opts) do
+    case DBConnection.prepare_execute(conn, %Query{query: query}, params, opts) do
       {:ok, _, result} -> {:ok, result}
       {:error, _} = error -> error
     end

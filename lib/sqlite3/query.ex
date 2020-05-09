@@ -1,5 +1,5 @@
 defmodule SQLite3.Query do
-  defstruct [:statement]
+  defstruct [:query, :statement]
 
   defimpl DBConnection.Query do
     def parse(query, _opts) do
@@ -10,12 +10,12 @@ defmodule SQLite3.Query do
       query
     end
 
-    def encode(query, _params, _opts) do
-      query
+    def encode(_query, params, _opts) do
+      params
     end
 
-    def decode(query, _result, _opts) do
-      query
+    def decode(_query, params, _opts) do
+      params
     end
   end
 end

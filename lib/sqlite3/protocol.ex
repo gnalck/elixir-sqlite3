@@ -3,12 +3,13 @@ defmodule SQLite3.Protocol do
   Implements DBConnection behavior for SQLite
   """
 
+  alias SQLite3.Query
+
   @behaviour DBConnection
 
   # todo: mode?
   defstruct db: nil,
-            status: :idle,
-            stmt: nil
+            status: :idle
 
   @impl DBConnection
   def connect(opts) do
@@ -61,18 +62,18 @@ defmodule SQLite3.Protocol do
   def handle_status(_, %{status: status} = s), do: {status, s}
 
   @impl DBConnection
-  def handle_prepare(query, _opts, %{db: db} = s) do
+  def handle_prepare(%Query{query: query}, _opts, %{db: db} = s) do
     case Sqlitex.Statement.prepare(db, query) do
-      {:ok, stmt} -> {:ok, query, %{s | stmt: stmt}}
+      {:ok, statement} -> {:ok, %Query{query: query, statement: statement}, s}
       err -> {:error, conn_error(err), s}
     end
   end
 
   @impl DBConnection
-  def handle_execute(_query, params, _opts, %{stmt: stmt} = s) do
-    with {:ok, stmt} <- Sqlitex.Statement.bind_values(stmt, params),
+  def handle_execute(%Query{statement: stmt} = query, params, _opts, s) do
+    with {:ok, stmt} <- Sqlitex.Statement.bind_values(stmt, []),
          {:ok, res} <- Sqlitex.Statement.fetch_all(stmt) do
-      {:ok, res, s}
+      {:ok, query, res, s}
     else
       {:error, err} -> {:error, conn_error(err), s}
     end
