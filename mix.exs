@@ -29,8 +29,8 @@ defmodule SQLite3.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:db_connection, "~> 2.2.2"},
-      {:sqlitex, "~> 1.7.1"}
+      {:db_connection, "2.2.2"},
+      {:esqlite, "0.4.1"}
     ]
   end
 end

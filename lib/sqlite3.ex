@@ -10,8 +10,8 @@ defmodule SQLite3 do
     DBConnection.child_spec(SQLite3.Protocol, opts)
   end
 
-  def query(conn, query, params, opts \\ []) do
-    case DBConnection.prepare_execute(conn, %Query{query: query}, params, opts) do
+  def query(conn, statement, params, opts \\ []) do
+    case DBConnection.prepare_execute(conn, %Query{statement: statement}, params, opts) do
       {:ok, _, result} -> {:ok, result}
       {:error, _} = error -> error
     end
