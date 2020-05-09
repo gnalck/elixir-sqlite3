@@ -1,4 +1,4 @@
-defmodule Sqlite3.MixProject do
+defmodule SQLite3.MixProject do
   use Mix.Project
 
   def project do
@@ -6,7 +6,8 @@ defmodule Sqlite3.MixProject do
       app: :sqlite3,
       version: "0.1.0",
       elixir: "~> 1.9",
-      start_permanent: Mix.env() == :prod,
+      description: "sqlite3 driver for Elixir",
+      source_url: "https://github.com/gnalck/elixir-sqlite3",
       deps: deps()
     ]
   end
@@ -18,11 +19,18 @@ defmodule Sqlite3.MixProject do
     ]
   end
 
+  def package do
+    [
+      licenses: ["MIT"],
+      links: %{"GitHub" => "https://github.com/gnalck/elixir-sqlite3"}
+    ]
+  end
+
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      # {:dep_from_hexpm, "~> 0.3.0"},
-      # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
+      {:db_connection, "~> 2.2.2"},
+      {:sqlitex, "~> 1.7.1"}
     ]
   end
 end

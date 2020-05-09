@@ -1,0 +1,7 @@
+%{
+  "connection": {:hex, :connection, "1.0.4", "a1cae72211f0eef17705aaededacac3eb30e6625b04a6117c1b2db6ace7d5976", [:mix], [], "hexpm", "4a0850c9be22a43af9920a71ab17c051f5f7d45c209e40269a1938832510e4d9"},
+  "db_connection": {:hex, :db_connection, "2.2.2", "3bbca41b199e1598245b716248964926303b5d4609ff065125ce98bcd368939e", [:mix], [{:connection, "~> 1.0.2", [hex: :connection, repo: "hexpm", optional: false]}], "hexpm", "642af240d8a8affb93b4ba5a6fcd2bbcbdc327e1a524b825d383711536f8070c"},
+  "decimal": {:hex, :decimal, "1.8.1", "a4ef3f5f3428bdbc0d35374029ffcf4ede8533536fa79896dd450168d9acdf3c", [:mix], [], "hexpm", "3cb154b00225ac687f6cbd4acc4b7960027c757a5152b369923ead9ddbca7aec"},
+  "esqlite": {:hex, :esqlite, "0.4.1", "ba5d0bab6b9c8432ffe1bf12fee8e154a50f1c3c40eadc3a9c870c23ca94d961", [:rebar3], [], "hexpm", "3584ca33172f4815ce56e96eed9835f5d8c987a9000fbc8c376c86acef8bf965"},
+  "sqlitex": {:hex, :sqlitex, "1.7.1", "022d477aab2ae999c43ae6fbd1782ff1457e0e95c251c7b5fa6f7b7b102040ff", [:mix], [{:decimal, "~> 1.7", [hex: :decimal, repo: "hexpm", optional: false]}, {:esqlite, "~> 0.4", [hex: :esqlite, repo: "hexpm", optional: false]}], "hexpm", "ef16cda37b151136a47a6c0830dc9eb5e5f8f5f029b649e9f3a58a6eed634b80"},
+}
