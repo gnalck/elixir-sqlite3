@@ -1,8 +1,14 @@
-defmodule SQLite3 do
-  use ExUnit.Case
-  doctest SQLite3
+defmodule SQLite3Test do
+  use ExUnit.Case, async: true
+  import SQLite3.TestHelper
+  import SQLite3
 
-  test "greets the world" do
-    assert SQLite3.hello() == :world
+  setup context do
+    {:ok, conn} = SQLite3.start_link(":memory:")
+    {:ok, [conn: conn]}
+  end
+
+  test "decode basic types", context do
+    assert [[nil]] = query("SELECT NULL;", [])
   end
 end
