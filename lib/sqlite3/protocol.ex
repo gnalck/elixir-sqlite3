@@ -77,8 +77,9 @@ defmodule SQLite3.Protocol do
   @impl DBConnection
   def handle_execute(%Query{ref: ref} = q, params, _opts, s) do
     with :ok <- :esqlite3.bind(ref, params),
-         res <- :esqlite3.fetchall(ref) do
-      {:ok, q, res, s}
+         res <- :esqlite3.fetchall(ref),
+         rows <- Enum.map(res, &Tuple.to_list(&1)) do
+      {:ok, q, rows, s}
     else
       {:error, err} -> {:error, conn_error(err), s}
     end
@@ -107,7 +108,7 @@ defmodule SQLite3.Protocol do
   defp conn_error(msg), do: DBConnection.ConnectionError.exception(msg)
 
   defp handle_transaction(%{db: db} = s, sql, new_status) do
-    case Sqlitex.exec(db, sql) do
+    case :esqlite3.exec(sql, db) do
       :ok ->
         {:ok, nil, %{s | status: new_status}}
 
