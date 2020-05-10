@@ -6,6 +6,9 @@ defmodule SQLite3.Query do
     :column_types
   ]
 
+  alias SQLite3.Result
+  alias __MODULE__, as: Query
+
   defimpl DBConnection.Query do
     def parse(query, _opts) do
       query
@@ -28,8 +31,18 @@ defmodule SQLite3.Query do
       end)
     end
 
-    def decode(_query, params, _opts) do
-      params
+    def decode(%Query{column_names: columns, column_types: types}, rows, _opts) do
+      rows =
+        Enum.map(rows, fn row ->
+          row
+          |> Enum.zip(types)
+          |> Enum.map(&decode_col(&1))
+        end)
+
+      %Result{rows: rows, columns: columns}
     end
+
+    def decode_col({:undefined, _}), do: nil
+    def decode_col({val, type}), do: val
   end
 end

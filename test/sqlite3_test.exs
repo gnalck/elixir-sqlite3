@@ -8,7 +8,6 @@ defmodule SQLite3Test do
   end
 
   test "decode basic types", context do
-    # todo - should return nil!
-    assert [[:undefined]] = query("SELECT NULL;", [])
+    assert [[nil]] = query("SELECT NULL;", [])
   end
 end
