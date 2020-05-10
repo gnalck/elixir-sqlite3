@@ -43,6 +43,12 @@ defmodule SQLite3.Query do
     end
 
     def decode_col({:undefined, _}), do: nil
-    def decode_col({val, type}), do: val
+    def decode_col({{:blob, blob}, _}), do: blob
+    def decode_col({val, type}) when type in ["bool", "boolean"], do: val == 1
+
+    def decode_col({val, _type} = t) do
+      IO.puts(inspect(t))
+      val
+    end
   end
 end

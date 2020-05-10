@@ -121,11 +121,18 @@ defmodule SQLite3.Protocol do
   defp get_column_types(ref) do
     :esqlite3.column_types(ref)
     |> Tuple.to_list()
+    |> atoms_lower()
   end
 
   @spec get_column_names(any()) :: list()
   defp get_column_names(ref) do
     :esqlite3.column_names(ref)
     |> Tuple.to_list()
+    |> atoms_lower()
+  end
+
+  @spec atoms_lower([atom()]) :: [String.t()]
+  defp atoms_lower(atoms) do
+    Enum.map(atoms, fn a -> Atom.to_string(a) |> String.downcase() end)
   end
 end

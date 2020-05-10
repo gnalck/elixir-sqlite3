@@ -16,11 +16,4 @@ defmodule SQLite3 do
       {:error, _} = error -> error
     end
   end
-
-  # def query(conn, statement, params, opts \\ []) do
-  #   case DBConnection.prepare_execute(conn, query, params, opts) do
-  #     {:ok, _, result} -> {:ok, result}
-  #     {:error, _} error -> error
-  #   end
-  # end
 end
