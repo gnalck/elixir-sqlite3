@@ -45,10 +45,29 @@ defmodule SQLite3.Query do
     def decode_col({:undefined, _}), do: nil
     def decode_col({{:blob, blob}, _}), do: blob
     def decode_col({val, type}) when type in ["bool", "boolean"], do: val == 1
+    def decode_col({val, type}) when type in ["time"], do: Time.from_iso8601!(val)
+    def decode_col({val, type}) when type in ["date"], do: Date.from_iso8601!(val)
 
-    def decode_col({val, _type} = t) do
-      IO.puts(inspect(t))
-      val
+    @doc """
+    For e.g., CURRENT_TIMESTAMP SQLite returns the UTC datetime but with
+    no timezone specified. Here we make a best-effort of translating datetime columns
+    by first trying to parse it as a DateTime, and otherwise falling back to
+    parsing it as Naive and translating that to DateTime with the UTC zone.
+
+    Unfortunately, this means that any naive datetimes stored in the database will not be
+    returned as such. The application developer is responsible for shifting things as needed.
+    """
+    def decode_col({val, type}) when type in ["datetime"] do
+      case DateTime.from_iso8601(val) do
+        {:ok, dt, _} ->
+          dt
+
+        {:error, _} ->
+          NaiveDateTime.from_iso8601!(val)
+          |> DateTime.from_naive!("Etc/UTC")
+      end
     end
+
+    def decode_col({val, _type}), do: val
   end
 end

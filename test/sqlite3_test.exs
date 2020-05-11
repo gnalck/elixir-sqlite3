@@ -38,6 +38,34 @@ defmodule SQLite3Test do
     assert [[true, false]] == query("SELECT * FROM foo", [])
   end
 
+  test "encode and decode time", context do
+    time = ~T[23:51:02.491415]
+    assert [] = query("CREATE TABLE foo(a TIME)", [])
+    assert [] = query("INSERT INTO foo VALUES($1)", [time])
+    assert [[time]] == query("SELECT * FROM foo", [])
+  end
+
+  test "encode and decode date", context do
+    date = ~D[2020-05-11]
+    assert [] = query("CREATE TABLE foo(a DATE)", [])
+    assert [] = query("INSERT INTO foo VALUES($1)", [date])
+    assert [[date]] == query("SELECT * FROM foo", [])
+  end
+
+  test "encode and decode datetime", context do
+    datetime = ~U[2020-05-11 00:28:33.696598Z]
+    assert [] = query("CREATE TABLE foo(a DATETIME)", [])
+    assert [] = query("INSERT INTO foo VALUES($1)", [datetime])
+    assert [[datetime]] == query("SELECT * FROM foo", [])
+  end
+
+  test "encode and decode blob", context do
+    blob = <<16, 0>>
+    assert [] = query("CREATE TABLE foo(a BLOB)", [])
+    assert [] = query("INSERT INTO foo VALUES($1)", [blob])
+    assert [[blob]] = query("SELECT * from foo", [])
+  end
+
   test "insert", context do
     assert [] == query("CREATE TABLE foo(bar);", [])
     assert [] == query("SELECT * from foo", [])
