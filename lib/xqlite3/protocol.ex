@@ -1,8 +1,8 @@
-defmodule SQLite3.Protocol do
+defmodule XQLite3.Protocol do
   @moduledoc """
   Implements DBConnection behavior for SQLite
   """
-  alias SQLite3.Query
+  alias XQLite3.Query
 
   @behaviour DBConnection
 
@@ -91,12 +91,12 @@ defmodule SQLite3.Protocol do
 
   @impl DBConnection
   def handle_declare(_query, _params, _opts, state) do
-    {:error, SQLite3.Error.exception("cursor not yet supported"), state}
+    {:error, XQLite3.Error.exception("cursor not yet supported"), state}
   end
 
   @impl DBConnection
   def handle_fetch(_query, _cursor, _opts, state) do
-    {:error, SQLite3.Error.exception("cursor not yet supported"), state}
+    {:error, XQLite3.Error.exception("cursor not yet supported"), state}
   end
 
   # prepared statements are deallocated for us via NIF's destruct_esqlite_statement

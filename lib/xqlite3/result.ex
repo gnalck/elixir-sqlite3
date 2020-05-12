@@ -1,4 +1,4 @@
-defmodule SQLite3.Result do
+defmodule XQLite3.Result do
   @type t :: %__MODULE__{
           columns: [String.t()] | nil,
           rows: [[term]] | nil

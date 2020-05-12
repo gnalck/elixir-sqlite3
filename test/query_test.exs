@@ -1,9 +1,9 @@
-defmodule SQLite3Test do
+defmodule XQLite3Test do
   use ExUnit.Case, async: true
-  import SQLite3.TestHelper
+  import XQLite3.TestHelper
 
   setup do
-    {:ok, conn} = SQLite3.start_link(":memory:")
+    {:ok, conn} = XQLite3.start_link(":memory:")
     {:ok, [conn: conn]}
   end
 
@@ -27,8 +27,8 @@ defmodule SQLite3Test do
   end
 
   test "column names", context do
-    assert {:ok, res} = SQLite3.query(context[:conn], "select 1 as A, 2 as B", [])
-    assert %SQLite3.Result{} = res
+    assert {:ok, res} = XQLite3.query(context[:conn], "select 1 as A, 2 as B", [])
+    assert %XQLite3.Result{} = res
     assert ["a", "b"] == res.columns
   end
 

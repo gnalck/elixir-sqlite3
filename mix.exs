@@ -1,15 +1,15 @@
-defmodule SQLite3.MixProject do
+defmodule XQLite3.MixProject do
   use Mix.Project
 
   @version "0.1.0"
 
   def project do
     [
-      app: :sqlite3,
+      app: :xqlite3,
       version: @version,
       elixir: "~> 1.9",
-      description: "sqlite3 driver for Elixir",
-      source_url: "https://github.com/gnalck/elixir-sqlite3",
+      description: "SQLite3 driver for Elixir",
+      source_url: "https://github.com/gnalck/xqlite3",
       deps: deps(),
       package: package(),
       docs: docs()
@@ -27,7 +27,7 @@ defmodule SQLite3.MixProject do
     [
       maintainers: ["Kevin Lang"],
       licenses: ["MIT"],
-      links: %{"GitHub" => "https://github.com/gnalck/elixir-sqlite3"}
+      links: %{"GitHub" => "https://github.com/gnalck/xqlite3"}
     ]
   end
 

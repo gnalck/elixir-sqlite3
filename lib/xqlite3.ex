@@ -1,9 +1,9 @@
-defmodule SQLite3 do
+defmodule XQLite3 do
   @moduledoc """
   SQLite3 driver for Elixir.
   """
 
-  alias SQLite3.Query
+  alias XQLite3.Query
 
   @doc """
   Start the connection process and connect to the database.
@@ -17,24 +17,24 @@ defmodule SQLite3 do
 
   ## Examples
 
-    iex> {:ok, pid} = SQLite3.start_link(":memory:")
+    iex> {:ok, pid} = XQLite3.start_link(":memory:")
     {:ok #PID<0.71.0>}
   """
   def start_link(path, opts \\ []) do
     opts = [path: path] ++ opts
-    DBConnection.start_link(SQLite3.Protocol, opts)
+    DBConnection.start_link(XQLite3.Protocol, opts)
   end
 
   @doc """
   Returns a supervisor child specification for a DBConnection pool.
   """
   def child_spec(opts) do
-    DBConnection.child_spec(SQLite3.Protocol, opts)
+    DBConnection.child_spec(XQLite3.Protocol, opts)
   end
 
   @doc """
-  Runs a query and returns the result as `{:ok, %SQLite3.Result{}}` or
-  `{:error, %SQLite3.Error{}}` if there was a database error. Parameters
+  Runs a query and returns the result as `{:ok, %XQLite3.Result{}}` or
+  `{:error, %XQLite3.Error{}}` if there was a database error. Parameters
   can be set in the query as `$1` embeddded in the query string. Parameters
   are given as a list of Elixir values.
   """
@@ -46,7 +46,7 @@ defmodule SQLite3 do
   end
 
   @doc """
-  Runs a query and returns the result or raises `SQLite3.Error` if there
+  Runs a query and returns the result or raises `XQLite3.Error` if there
   was an error. See `query/3`.
   """
   def query!(conn, statement, params, opts \\ []) do

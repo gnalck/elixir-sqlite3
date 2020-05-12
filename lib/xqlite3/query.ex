@@ -1,4 +1,4 @@
-defmodule SQLite3.Query do
+defmodule XQLite3.Query do
   defstruct [
     :statement,
     :ref,
@@ -6,7 +6,7 @@ defmodule SQLite3.Query do
     :column_types
   ]
 
-  alias SQLite3.Result
+  alias XQLite3.Result
   alias __MODULE__, as: Query
 
   defimpl DBConnection.Query do

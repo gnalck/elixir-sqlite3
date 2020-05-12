@@ -1,3 +1,3 @@
-defmodule SQLite3.Error do
+defmodule XQLite3.Error do
   defexception [:message]
 end
