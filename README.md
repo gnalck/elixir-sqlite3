@@ -1,4 +1,4 @@
-# sqlite3
+# XQLite3
 This creates a connection pooled sqlite driver by combining `esqlite` and `db_connection`.
 
 Now that the dirty scheduler more widely available, in the long run we hope to later replace `esqlite` with
