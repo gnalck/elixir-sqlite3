@@ -1,4 +1,8 @@
 defmodule SQLite3 do
+  @moduledoc """
+  SQLite3 driver for Elixir.
+  """
+
   alias SQLite3.Query
 
   @doc """
@@ -6,7 +10,9 @@ defmodule SQLite3 do
 
   ## Options
 
-    * ':timeout` - configure the default statement timeout in ms.
+    * `:path` - the path to the database. If no database exists at that
+      path, one will be created there. For in-memory database, provide `:memory:`
+    * `:timeout` - configure the default statement timeout in ms.
       Default is provided by `esqlite3` and is currently 5000 ms.
 
   ## Examples
