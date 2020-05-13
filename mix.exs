@@ -34,7 +34,7 @@ defmodule XQLite3.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:db_connection, "2.2.2"},
+      {:db_connection, "~> 2.2"},
       {:esqlite, "0.4.1"},
       {:ex_doc, "0.22.0", only: :dev, runtime: false}
     ]
