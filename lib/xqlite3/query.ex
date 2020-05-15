@@ -70,4 +70,10 @@ defmodule XQLite3.Query do
 
     def decode_col({val, _type}), do: val
   end
+
+  defimpl String.Chars do
+    def to_string(%XQLite3.Query{statement: statement}) do
+      IO.iodata_to_binary(statement)
+    end
+  end
 end
