@@ -3,7 +3,7 @@ defmodule XQLite3 do
   SQLite3 driver for Elixir.
   """
 
-  alias XQLite3.Query
+  alias XQLite3.{Query, Result, Error}
 
   @doc """
   Start the connection process and connect to the database.
@@ -43,6 +43,13 @@ defmodule XQLite3 do
       {:ok, _, result} -> {:ok, result}
       {:error, _} = error -> error
     end
+  end
+
+  @spec prepare_execute(any, iodata, iodata, list, [any]) ::
+          {:ok, Query.t(), Result.t()} | {:error, Error.t()}
+  def prepare_execute(conn, name, statement, params, opts \\ []) do
+    query = %Query{name: name, statement: statement}
+    DBConnection.prepare_execute(conn, query, params, opts)
   end
 
   @doc """

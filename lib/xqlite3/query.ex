@@ -40,7 +40,7 @@ defmodule XQLite3.Query do
           |> Enum.map(&decode_col(&1))
         end)
 
-      %Result{rows: rows, columns: columns}
+      %Result{rows: rows, num_rows: length(rows), columns: columns}
     end
 
     def decode_col({:undefined, _}), do: nil
