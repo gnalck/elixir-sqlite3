@@ -70,7 +70,7 @@ defmodule XQLite3.Protocol do
          column_types <- get_column_types(ref) do
       {:ok, %{q | ref: ref, column_names: column_names, column_types: column_types}, s}
     else
-      err -> IO.puts(inspect(err)) && {:error, conn_error(err), s}
+      err -> IO.puts(inspect(statement)) && {:error, conn_error(err), s}
     end
   end
 

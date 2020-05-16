@@ -1,5 +1,6 @@
 defmodule XQLite3.Query do
   defstruct [
+    :name,
     :statement,
     :ref,
     :column_names,
