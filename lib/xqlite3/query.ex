@@ -28,6 +28,7 @@ defmodule XQLite3.Query do
         date = %Date{} -> Date.to_string(date)
         time = %Time{} -> Time.to_string(time)
         datetime = %DateTime{} -> DateTime.to_string(datetime)
+        ndatetime = %NaiveDateTime{} -> NaiveDateTime.to_string(ndatetime)
         other -> other
       end)
     end

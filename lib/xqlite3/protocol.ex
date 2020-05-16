@@ -70,7 +70,7 @@ defmodule XQLite3.Protocol do
          column_types <- get_column_types(ref) do
       {:ok, %{q | ref: ref, column_names: column_names, column_types: column_types}, s}
     else
-      err -> IO.puts(inspect(statement)) && {:error, conn_error(err), s}
+      err -> {:error, conn_error(err), s}
     end
   end
 
@@ -105,6 +105,8 @@ defmodule XQLite3.Protocol do
 
   defp conn_error({:error, err}), do: conn_error(err)
   defp conn_error({:sqlite_error, msg}), do: conn_error(msg)
+  defp conn_error(msg) when is_list(msg), do: conn_error(to_string(msg))
+  defp conn_error(msg) when is_atom(msg), do: conn_error(Atom.to_string(msg))
   defp conn_error(msg), do: DBConnection.ConnectionError.exception(msg)
 
   defp handle_transaction(%{db: db} = s, sql, new_status) do
