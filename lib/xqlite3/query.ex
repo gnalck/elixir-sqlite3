@@ -33,7 +33,11 @@ defmodule XQLite3.Query do
       end)
     end
 
-    def decode(%Query{column_names: columns, column_types: types}, rows, _opts) do
+    def decode(
+          %Query{column_names: columns, column_types: types, statement: statement},
+          %{rows: rows, num_updated_rows: num_updated_rows},
+          _opts
+        ) do
       rows =
         Enum.map(rows, fn row ->
           row
@@ -41,7 +45,9 @@ defmodule XQLite3.Query do
           |> Enum.map(&decode_col(&1))
         end)
 
-      %Result{rows: rows, num_rows: length(rows), columns: columns}
+      num_rows = if is_update?(statement), do: num_updated_rows, else: length(rows)
+      rows = if is_update?(statement), do: nil, else: rows
+      %Result{rows: rows, num_rows: num_rows, columns: columns}
     end
 
     def decode_col({:undefined, _}), do: nil
@@ -71,6 +77,10 @@ defmodule XQLite3.Query do
     end
 
     def decode_col({val, _type}), do: val
+
+    def is_update?(statement) do
+      String.match?(to_string(statement), ~r/(insert|update|delete)\s/i)
+    end
   end
 
   defimpl String.Chars do

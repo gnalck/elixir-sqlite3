@@ -75,11 +75,12 @@ defmodule XQLite3.Protocol do
   end
 
   @impl DBConnection
-  def handle_execute(%Query{ref: ref} = q, params, _opts, s) do
+  def handle_execute(%Query{ref: ref} = q, params, _opts, %{db: db} = s) do
     with :ok <- :esqlite3.bind(ref, params),
          res <- :esqlite3.fetchall(ref),
+         {:ok, num_updated_rows} <- :esqlite3.changes(db),
          rows <- Enum.map(res, &Tuple.to_list(&1)) do
-      {:ok, q, rows, s}
+      {:ok, q, %{rows: rows, num_updated_rows: num_updated_rows}, s}
     else
       {:error, err} -> {:error, conn_error(err), s}
     end
