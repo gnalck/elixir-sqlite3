@@ -62,4 +62,10 @@ defmodule XQLite3 do
       {:error, err} -> raise err
     end
   end
+
+  @spec execute(any, Query.t(), list, [any]) ::
+          {:ok, Query.t(), Result.t()} | {:error, Error.t()}
+  def execute(conn, query, params, opts \\ []) do
+    DBConnection.execute(conn, query, params, opts)
+  end
 end
