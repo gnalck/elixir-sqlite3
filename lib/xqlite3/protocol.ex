@@ -82,7 +82,7 @@ defmodule XQLite3.Protocol do
          [{last_insert_rowid}] <- :esqlite3.q("select last_insert_rowid()", db),
          rows <- Enum.map(res, &Tuple.to_list(&1)) do
       IO.puts(q.statement)
-      {:ok, q, %{rows: rows, num_updated_rows: num_updated_rows, last_insert_rowid: last_insert_rowid}, s}
+      {:ok, q, %{rows: rows, num_updated_rows: num_updated_rows, last_insert_id: last_insert_rowid}, s}
     else
       {:error, err} -> {:error, conn_error(err), s}
     end
