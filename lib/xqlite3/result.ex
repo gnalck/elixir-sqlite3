@@ -4,5 +4,5 @@ defmodule XQLite3.Result do
           rows: [[term]] | nil
         }
 
-  defstruct [:columns, :rows, :num_rows]
+  defstruct [:columns, :rows, :num_rows, :last_insert_id]
 end

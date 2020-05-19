@@ -35,7 +35,7 @@ defmodule XQLite3.Query do
 
     def decode(
           %Query{column_names: columns, column_types: types, statement: statement},
-          %{rows: rows, num_updated_rows: num_updated_rows},
+          %{rows: rows, num_updated_rows: num_updated_rows, last_insert_id: last_insert_id},
           _opts
         ) do
       rows =
@@ -47,7 +47,7 @@ defmodule XQLite3.Query do
 
       num_rows = if is_update?(statement), do: num_updated_rows, else: length(rows)
       rows = if is_update?(statement), do: nil, else: rows
-      %Result{rows: rows, num_rows: num_rows, columns: columns}
+      %Result{rows: rows, num_rows: num_rows, columns: columns, last_insert_id: last_insert_id}
     end
 
     def decode_col({:undefined, _}), do: nil
